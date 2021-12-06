@@ -170,6 +170,18 @@ async function addTagsToPost(postId, tagList) {
     }
 }
 
+async function getAllTags() {
+  try {
+    const { rows: [tags] } = await client.query(`
+    SELECT * FROM tags;
+    `);
+
+    return tags;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getPostById(postId) {
     try {
         const { rows: [post] } = await client.query(`
@@ -302,6 +314,19 @@ async function getPostsByUser(userId) {
       throw error;
     }
   } 
+  async function getUserByUsername(username) {
+    try {
+      const { rows: [user] } = await client.query(`
+        SELECT *
+        FROM users
+        WHERE username=$1;
+      `, [username]);
+  
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 module.exports = {
     client,
@@ -317,5 +342,7 @@ module.exports = {
     addTagsToPost,
     getPostById,
     createPostTag,
-    getPostsByTagName
+    getPostsByTagName,
+    getAllTags,
+    getUserByUsername
 }
