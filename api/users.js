@@ -8,7 +8,7 @@ const { createUser } = require('../db');
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /users");
 
-  next(); // THIS IS DIFFERENT
+  next(); 
 });
 
 usersRouter.get('/', async (req, res) => {
